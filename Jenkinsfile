@@ -1,16 +1,10 @@
 pipeline {
     agent any
     stages {
-        stage('build') {
+        stage('build and run') {
             steps {
-                sh "docker build -t denoApp ."
+                sh "docker-compose up -d"
                 }
             }
-        
-        stage('run') {
-            steps {
-                sh "docker run -dp 7700:7700 denoApp"
-            }
-        }
     }
 }
