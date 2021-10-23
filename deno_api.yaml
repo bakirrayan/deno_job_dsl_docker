@@ -1,0 +1,48 @@
+--- 
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: deno-rest-api-deployment
+  labels:
+    app: deno
+spec: 
+  replicas: 1
+  selector: 
+    matchLabels: 
+      app: deno
+  template: 
+    metadata: 
+      labels: 
+        app: deno
+    spec: 
+      containers: 
+        - 
+          image: rayanbak257/deno_rest_api_test:latest
+          name: deno
+          ports: 
+            - 
+              containerPort: 7700
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: deno-rest-api-entrypoint
+spec:
+  selector:
+    app: deno
+  ports:
+  - name: http
+    protocol: TCP
+    port: 7700
+    targetPort: 7700
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: deno-rest-api-ingress
+spec:
+  defaultBackend:
+    service:
+      name: deno-ingress
+      port:
+        number: 7700

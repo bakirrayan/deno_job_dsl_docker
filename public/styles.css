@@ -1,0 +1,16 @@
+body {
+    background-color: darkgrey;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+    color: purple;
+}
+
+h2 {
+    color: brown;
+}
+
+p {
+    color: crimson;
+}
