@@ -9,7 +9,6 @@ pipeline {
         }
         stage('Publish image to Docker Hub') {
             steps {
-                sh 'docker tag denoapp rayanbak257/denoapp:latest'
                 withDockerRegistry([ credentialsId: "dockerHub", url: "" ]) {
                     sh  'docker push rayanbak257/denoapp:latest'
                 }
