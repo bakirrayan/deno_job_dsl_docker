@@ -29,16 +29,9 @@ pipeline {
                         // mark current build as a failure and throw the error
                         throw e;
                     }
-                    post {
-                        success {
-                            emailext body: 'Success build', 
-                            recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], 
-                            subject: 'successfull build'
-                        }
-                    }
                 }
             }
-        }
+        }  
         stage('Publish image to Docker Hub') {
             steps {
                 sh 'docker tag denoApp rayanbak257/denoApp:latest'
@@ -46,6 +39,13 @@ pipeline {
                     sh  'docker push rayanbak257/denoApp:latest'
                 }
             }
+        }
+    }
+    post {
+        success {
+            emailext body: 'Success build', 
+            recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], 
+            subject: 'successfull build'
         }
     }
 }
