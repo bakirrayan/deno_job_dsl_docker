@@ -7,18 +7,21 @@ pipeline {
     ])
 
     try {
-        stage('build and run') {
-            steps {
-                sh "docker-compose up -d"
+        stages {
+            stage('build and run') {
+                steps {
+                    sh "docker-compose up -d"
+                }
             }
-        }
-        stage('Publish image to Docker Hub') {
-            steps {
-                withDockerRegistry([ credentialsId: "dockerHub", url: "" ]) {
-                    sh  'docker push rayanbak257/denoApp:latest'
+            stage('Publish image to Docker Hub') {
+                steps {
+                    withDockerRegistry([ credentialsId: "dockerHub", url: "" ]) {
+                        sh  'docker push rayanbak257/denoApp:latest'
+                    }
                 }
             }
         }
+        
     } catch(e) {
         // mark build as failed
         currentBuild.result = "FAILURE";
