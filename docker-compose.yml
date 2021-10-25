@@ -3,6 +3,6 @@ version: '3.7'
 services:
   web:
     build: .
-    container_name: rayanbak257/denoApp
+    container_name: denoApp:latest
     ports:
       - 7700:7700
