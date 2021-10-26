@@ -10,6 +10,7 @@ pipeline {
             steps {
                 withDockerRegistry([ credentialsId: "dockerhub", url: "" ]) {
                     sh  'docker push rayanbak257/denoapp:latest'
+                    
                 }
             }
         }
