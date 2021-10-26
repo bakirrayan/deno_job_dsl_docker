@@ -16,15 +16,10 @@ pipeline {
         }
     }
     post {
-        success {
-            emailext body: 'Success build', 
+        always {
+            emailext body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}", 
             recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], 
-            subject: 'successfull build'
-        }
-        failure {
-            emailext body: 'failure build', 
-            recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], 
-            subject: 'failure build'
+            subject: "Jenkins Build ${currentBuild.currentResult}: Job ${env.JOB_NAME}"
         }
     }
 }
